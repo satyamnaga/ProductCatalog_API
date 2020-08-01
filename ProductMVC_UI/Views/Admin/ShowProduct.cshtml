@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ProductMVC_UI.Models.ProductEntity>
+@{
+    ViewBag.Title = "ShowProduct";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+<style>
+    .headrow {
+        background-color: #c27da9;
+        font-weight: normal;
+        font-size: 17px;
+        color: mistyrose;
+        text-align: center;
+    }
+
+    .bodyrow:hover {
+        background-color: #d9b3ff;
+    }
+
+    .bodyrow {
+        background-color: #ffb3ff;
+        text-align: center;
+    }
+</style>
+<h2 style="font-family:'Times New Roman';text-align:center;font-size:23px;">Admin can see List of Products and he can do Operation also</h2>
+<table border="1" style="border-color:gray;" cellpadding="3">
+    <thead>
+        <tr class="headrow">
+            <th style="text-align:center;">ID</th>
+            <th style="text-align:center;">Teaser Image</th>
+            <th style="text-align:center;">Short Description</th>
+            <th style="text-align:center;">Long Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="bodyrow">
+                <td>@item.ID</td>
+                <td><img src="@Url.Content(@item.TeaserImage)" height="85" width="85" /></td>
+                <td>@item.ShortDescription</td>
+                <td>@item.LongDescription</td>
+                <td>
+                    @Html.ActionLink("Edit", "EditProduct", new { id = item.ID }, new { @class = "btn btn-info btn-md" })
+                    @using (Html.BeginForm("Delete", "Admin", new { id = item.ID }))
+                    {
+                        <input type="submit" value="Delete" class="btn btn-danger btn-md" onclick="return confirm('Are you sure want to delete product with ID=@item.ID');" style="font-size:16px; margin-top:5px;" />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

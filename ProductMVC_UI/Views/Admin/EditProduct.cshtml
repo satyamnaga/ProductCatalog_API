@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "EditProduct";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+<style>
+    body {
+        background-image: url(../../BGImage/bg.jpg);
+        background-size: cover;
+        margin: 0;
+        font-family: 'Times New Roman';
+        font-size: 17px;
+    }
+
+    .control-label {
+        font-family: 'Times New Roman';
+        font-size: 18px;
+        font-weight: normal;
+    }
+
+    .form-control {
+        font-family: 'Times New Roman';
+        font-size: 17px;
+    }
+</style>
+
+@using ProductMVC_UI.Models;
+@model ProductEntity
+@using (Html.BeginForm("EditProduct", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <br />
+    <h2 style="font-family:'Times New Roman';text-align:center;font-size:23px;">Please Update Product Details Here</h2><br />
+    @Html.HiddenFor(x => x.ID, new { @class = "form-control" })
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <br /><label for="photo" class="control-label">Select Teaser Image</label>
+                    <input type="file" accept=".jpg, .JPG, jpeg, .JPEG, .png, .PNG" name="UploadImage" style="font-family:'Times New Roman'; font-size:15px;" required />
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <label for="sdes" class="control-label">Short Description</label>
+                    @Html.TextBoxFor(x => x.ShortDescription, new { @class = "form-control", type = "text", pattern = "[A-za-Z0-9]", required = "true" })
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <label for="ldes" class="control-label">Long Description</label>
+                    @Html.TextBoxFor(x => x.LongDescription, new { @class = "form-control", type = "text", required = "true" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-success btn-md pull-left" style="font-size:18px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
